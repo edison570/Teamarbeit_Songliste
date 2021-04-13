@@ -6,15 +6,15 @@ public class Song {
 	private String album;
 	private int erscheinungsjahr;
 
-	public static void main(String[] args) {
-		Song s = new Song();
-		Song x = new Song();
-		s.setSong("A Hard Rain's A-Gonna Fall;The Best Of Bob Dylan Volume 2;Bob Dylan;2000");
-		x = s.clone();
-		s.setSong("If Everyone Was Listening;The Very Best Of Supertramp Vol. 2;Supertramp;1992");
-		System.out.println(s.toString());
-		System.out.println(x.toString());
-	}
+	 public static void main(String[] args) {
+	 	Song s = new Song();
+	 	Song x = new Song();
+	 	s.setSong("A Hard Rain's A-Gonna Fall;The Best Of Bob Dylan Volume 2;Bob Dylan;2000");
+	 	x = s.clone();
+	 	s.setSong("If Everyone Was Listening;The Very Best Of Supertramp Vol. 2;Supertramp;1992");
+	 	System.out.println(s.toString());
+	 	System.out.println(x.toString());
+	 }
 
 	/**
 	 * Kontrolliert ob der Song mit dem �bergebenem Song �bereinstimmt
