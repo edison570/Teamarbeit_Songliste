@@ -24,9 +24,128 @@ public class Songliste {
 	 * 
 	 * @param pfad
 	 */
-	public Songliste(String pfad) {
-		this.songs = liesSongs(pfad, getLines(pfad));
+	// public Songliste(String pfad) {
+	// this.songs = liesSongs(pfad, getLines(pfad));
+	// this.nummerAktueller = 0;
+	// }
+
+	/**
+	 * 
+	 * @return the Song at the current position
+	 */
+	public Song getAktueller() {
+		return this.songs[this.nummerAktueller];
+	}
+
+	/**
+	 * 
+	 * @return the Song at the next position
+	 */
+	public Song getNaechster() {
+		Song ret = this.songs[this.nummerAktueller];
+		if (nummerAktueller + 1 < this.songs.length) {
+			this.nummerAktueller++;
+			ret = this.songs[this.nummerAktueller];
+		}
+		return ret;
+	}
+
+	/**
+	 * 
+	 * @return the Song at the previus position
+	 */
+	public Song getVorherigen() {
+		Song ret = this.songs[this.nummerAktueller];
+		if (this.nummerAktueller - 1 >= 0) {
+			this.nummerAktueller--;
+			ret = this.songs[this.nummerAktueller];
+		}
+		return ret;
+	}
+
+	/**
+	 * 
+	 * @return the first Song
+	 */
+	public Song getErster() {
 		this.nummerAktueller = 0;
+		return this.songs[0];
+	}
+
+	/**
+	 * 
+	 * @return the last song in the list
+	 */
+	public Song getLetzter() {
+		this.nummerAktueller = anzahl - 1;
+		return this.songs[this.anzahl - 1];
+	}
+
+	/**
+	 * add a new Song at he last position of the list
+	 * 
+	 * @param s new song`
+	 */
+	public void anfuegenNeuen(Song s) {
+		if (this.anzahl < this.songs.length) {
+			this.songs[anzahl] = s;
+			this.nummerAktueller = this.anzahl;
+			this.anzahl++;
+		}
+	}
+
+	/**
+	 * Changes the number of the current song to the song s
+	 * 
+	 * @param s new current song
+	 */
+	public Song aendernAktuellen(Song s) {
+		Song ret = songs[nummerAktueller];
+		int i = 0;
+		while (songs[i].compareTo(s) == 0 || i == anzahl - 1) {
+			i++;
+		}
+		if (i != anzahl - 1) {
+			nummerAktueller = i;
+			ret = songs[nummerAktueller];
+		}
+		return ret;
+	}
+
+	/**
+	 * delite the current song
+	 * 
+	 * @return the next song
+	 */
+	public Song loeschenAktuellen() {
+		for (int i = nummerAktueller; i < anzahl - 1; i++)
+			songs[i] = getNaechster();
+		anzahl--;
+		songs[anzahl] = null;
+		return songs[nummerAktueller];
+	}
+
+	/**
+	 * removes all songs in the objekt songlist
+	 */
+	public void loeschenAlle() {
+		for (int i = 0; i < anzahl; i++) {
+			songs[i] = null;
+		}
+	}
+
+	/**
+	 * reads songs from a file 
+	 */
+	public void lesenSongs() {
+		songs = readSongs(pfad, getLines(pfad));
+	}
+
+	/**
+	 * schreibt alle songs in eine csv datei
+	 */
+	public void schreibenSongs() {
+		write(songs, pfad);
 	}
 
 	public String getPfad() {
@@ -38,7 +157,7 @@ public class Songliste {
 	}
 
 	/**
-	 * 
+	 * writes the song in the file with the paht ziel
 	 * 
 	 * @param s    text
 	 * @param ziel zieldatei
@@ -85,8 +204,10 @@ public class Songliste {
 	}
 
 	/**
+	 * gets the
 	 * 
 	 * @param quelle
+	 * @return the number of lines in a document
 	 */
 	public static int getLines(String quelle) {
 		int ret = 0;
@@ -104,7 +225,7 @@ public class Songliste {
 	}
 
 	// Zeilenweises Lesen aus einer Datei
-	public static Song[] liesSongs(String quelle, int lines) {
+	public static Song[] readSongs(String quelle, int lines) {
 		Song[] ret = new Song[lines - 1];
 		try {
 			BufferedReader reader = new BufferedReader(new FileReader(quelle));
@@ -129,5 +250,4 @@ public class Songliste {
 		}
 		return ret;
 	}
-
 }
