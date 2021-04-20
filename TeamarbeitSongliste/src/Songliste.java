@@ -9,7 +9,7 @@ public class Songliste {
 	private String pfad;
 
 	/**
-	 * Inizialisiert das Objekt songliste
+	 * Inizialisiert das Objekt Songliste
 	 * 
 	 * @param max_anzahl
 	 */
@@ -17,17 +17,6 @@ public class Songliste {
 		this.songs = new Song[max_anzahl];
 		this.nummerAktueller = 0;
 	}
-
-	/**
-	 * Inizialisiert ein Objekt Songliste und fuellt es mit den songs im file mit
-	 * dem pfad pfad
-	 * 
-	 * @param pfad
-	 */
-	// public Songliste(String pfad) {
-	// this.songs = liesSongs(pfad, getLines(pfad));
-	// this.nummerAktueller = 0;
-	// }
 
 	/**
 	 * 
@@ -132,6 +121,7 @@ public class Songliste {
 		for (int i = 0; i < anzahl; i++) {
 			songs[i] = null;
 		}
+		anzahl = 0;
 	}
 
 	/**
@@ -194,6 +184,13 @@ public class Songliste {
 		return s;
 	}
 
+	/**
+	 * Swap the song at index "index" with the previous song
+	 * 
+	 * @param s Songlist
+	 * @param index 
+	 * @return A list of Songs with swapped Songs
+	 */
 	public static Song[] swapSongs(Song[] s, int index) {
 		if (index - 1 >= 0) {
 			Song tmp = s[index].clone();
@@ -204,9 +201,8 @@ public class Songliste {
 	}
 
 	/**
-	 * gets the
 	 * 
-	 * @param quelle
+	 * @param quelle path of document
 	 * @return the number of lines in a document
 	 */
 	public static int getLines(String quelle) {
@@ -224,7 +220,12 @@ public class Songliste {
 		return ret;
 	}
 
-	// Zeilenweises Lesen aus einer Datei
+	/**
+	 * 
+	 * @param quelle
+	 * @param lines
+	 * @return
+	 */
 	public static Song[] readSongs(String quelle, int lines) {
 		Song[] ret = new Song[lines - 1];
 		try {
@@ -243,7 +244,9 @@ public class Songliste {
 				i++;
 			}
 			reader.close();
-		} catch (FileNotFoundException e) {
+		}
+		// Fehler
+		catch (FileNotFoundException e) {
 			System.out.println("Datei nicht gefunden");
 		} catch (IOException e) {
 			System.out.println("Lesefehler in Datei");
