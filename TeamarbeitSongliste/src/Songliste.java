@@ -3,14 +3,10 @@ import java.io.*;
 
 public class Songliste {
 
-	// liste von Songs
-	private Song[] songs;
-	// nummer vom Aktuellen song
-	private int nummerAktueller;
-	// anzahl der Songs
-	private int anzahl;
-	// pfad der csv-Datei
-	private String pfad;
+	private Song[] songs; // liste von Songs
+	private int nummerAktueller; // nummer vom Aktuellen song
+	private int anzahl; // anzahl der Songs
+	private String pfad; // pfad der csv-Datei
 
 	/**
 	 * Inizialisiert das Objekt Songliste
@@ -129,10 +125,23 @@ public class Songliste {
 	}
 
 	/**
-	 * reads songs from a file 
+	 * reads songs from a file
 	 */
 	public void lesenSongs() {
-		songs = readSongs(pfad, getLines(pfad));
+		int i = 0;
+		Song[] tmp = readSongs(pfad, getLines(pfad));
+
+		while (i < tmp.length && i < this.songs.length) {
+			this.songs[i] = tmp[i];
+			i++;
+		}
+		if (tmp.length > this.songs.length) {
+			anzahl = songs.length;
+		} else {
+			anzahl = tmp.length;
+		}
+		// anzahl = getLines(pfad);
+		this.nummerAktueller = 0;
 	}
 
 	/**
@@ -159,6 +168,7 @@ public class Songliste {
 	 */
 	public static void write(Song[] s, String ziel) {
 		try {
+			// new FileWriter(ziel, false).close(); // delite conntent of ziel
 			BufferedWriter writer = new BufferedWriter(new FileWriter(ziel));
 			for (Song song : s) {
 				writer.write(song.toString() + "\n");
@@ -191,8 +201,8 @@ public class Songliste {
 	/**
 	 * Swap the song at index "index" with the previous song
 	 * 
-	 * @param s Songlist
-	 * @param index 
+	 * @param s     Songlist
+	 * @param index
 	 * @return A list of Songs with swapped Songs
 	 */
 	public static Song[] swapSongs(Song[] s, int index) {
@@ -228,11 +238,11 @@ public class Songliste {
 	 * liest den document und macht daraus eine liste von songs
 	 * 
 	 * @param quelle pfad vom document
-	 * @param lines anzahl der zeilen
+	 * @param lines  anzahl der zeilen
 	 * @return liste von songs im document
 	 */
 	public static Song[] readSongs(String quelle, int lines) {
-		Song[] ret = new Song[lines - 1];
+		Song[] ret = new Song[lines];
 		try {
 			BufferedReader reader = new BufferedReader(new FileReader(quelle));
 			int i = 0;
