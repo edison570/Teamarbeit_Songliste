@@ -3,9 +3,13 @@ import java.io.*;
 
 public class Songliste {
 
+	// liste von Songs
 	private Song[] songs;
+	// nummer vom Aktuellen song
 	private int nummerAktueller;
+	// anzahl der Songs
 	private int anzahl;
+	// pfad der csv-Datei
 	private String pfad;
 
 	/**
@@ -138,6 +142,7 @@ public class Songliste {
 		write(songs, pfad);
 	}
 
+	// geters und setters
 	public String getPfad() {
 		return pfad;
 	}
@@ -156,9 +161,8 @@ public class Songliste {
 		try {
 			BufferedWriter writer = new BufferedWriter(new FileWriter(ziel));
 			for (Song song : s) {
-				writer.write(song + "\n");
+				writer.write(song.toString() + "\n");
 			}
-			// writer.write("\n\n\n");
 			writer.close();
 		} catch (IOException e) {
 			System.out.println("Datei nicht angelegt");
