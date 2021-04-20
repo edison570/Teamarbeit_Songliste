@@ -225,10 +225,11 @@ public class Songliste {
 	}
 
 	/**
+	 * liest den document und macht daraus eine liste von songs
 	 * 
-	 * @param quelle
-	 * @param lines
-	 * @return
+	 * @param quelle pfad vom document
+	 * @param lines anzahl der zeilen
+	 * @return liste von songs im document
 	 */
 	public static Song[] readSongs(String quelle, int lines) {
 		Song[] ret = new Song[lines - 1];
